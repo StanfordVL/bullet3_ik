@@ -8035,6 +8035,10 @@ static PyObject* pybullet_calculateInverseKinematics(PyObject* self,
 			{
 				PyErr_SetString(SpamError,
 								"calculateInverseKinematics the size of input joint damping values is smaller than the number of joints.");
+				free(lowerLimits); 
+            	free(upperLimits); 
+            	free(jointRanges); 
+            	free(restPoses); 
 				return NULL;
 			}
 			else
@@ -8088,6 +8092,11 @@ static PyObject* pybullet_calculateInverseKinematics(PyObject* self,
 				b3CalculateInverseKinematicsSetJointDamping(command, numJoints, jointDamping);
 			}
 			free(jointDamping);
+
+			free(lowerLimits);
+            free(upperLimits);
+            free(jointRanges);
+            free(restPoses);
 
 			statusHandle = b3SubmitClientCommandAndWaitStatus(sm, command);
 
